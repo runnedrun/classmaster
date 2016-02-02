@@ -1,0 +1,38 @@
+{
+    "name": "Class Master",
+    "version": "1",
+    "manifest_version": 2,
+    "description": "Create and play tutorials on the web",
+    "browser_action": {
+        "default_icon": "icon128.png"
+    },
+    "icons": { "16": "icon16.png",
+               "48": "icon48.png",
+              "128": "icon128.png" 
+    },
+    // "update_url": "http://webtrails.co/chrome_extension_update.xml",
+    "background": {        
+        "scripts": [
+            "third_party/jquery.js", "js/background/Requests.js", "js/background/main.js",
+            "js/background/LocalStorageAccess.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "exclude_globs": ["http://localhost:3000/*", "http://*.webtrails.co/*"],
+            "js": ["third_party/jquery.js",
+                "js/content/BackgroundRequest.js", "js/content/BackgroundStorage.js",
+                "js/content/ButterBar.js", "js/content/IframeManager.js", "js/content/main.js"
+                ],
+            "run_at": "document_start"
+        }
+    ],
+    "permissions": [
+        "*://*/*", "tabs", "cookies"
+    ],
+    "externally_connectable": {
+        "matches": ["*://*.classadoo.com/*", "http://localhost:3000/*"]
+    },
+    "web_accessible_resources": ["html/*", "css/*"]
+}
